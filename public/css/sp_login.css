@@ -1,0 +1,36 @@
+body{
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    background-size: 100% 100%;
+}
+h1{
+	text-align: center;
+}
+span{
+	text-align:center;
+}
+a:link {
+  color: #000000;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
+}
+div{
+	text-align: left;
+	background: rgb(255,255,255,0.6);
+	margin:3% 70% 2% 2%;
+	border:3px solid #000000;
+}
+button{
+	width:50%;
+	margin:0% 25% 5% 25%;
+}
+img{
+	width:50%;
+	margin:0% 25% 5% 25%;
+}

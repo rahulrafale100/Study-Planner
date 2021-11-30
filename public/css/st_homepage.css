@@ -1,0 +1,26 @@
+/* body{
+	background-image: url('image/NIT-Calicut_img.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    background-size: 100% 100%;
+} */
+h1{
+	color:#ffffff;
+}
+h2{
+	font-size:40px;
+}
+
+.box{
+  float:left; 
+  background-color: rgb(255,255,255,0.8);
+  width: 420px;
+  height:250px;
+  border: 10px solid #AAAAAA;
+  border-radius: 50px;
+  padding: 50px;
+  margin: 20px;
+}
+
+
+

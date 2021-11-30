@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Schedule</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/schedule.css">
+	<script src="js/schedule.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  		<div class="container-fluid">
+    		<a class="navbar-brand" href="#">Time Table</a>
+    		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      		<span class="navbar-toggler-icon"></span></button>
+    		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        			<li class="nav-item">
+          				<a class="nav-link active" aria-current="page" href="Student">Home</a>
+        			</li>
+        			<li class="nav-item dropdown">
+          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Courses</a>
+          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            				<% data.forEach(function(val){%>
+								<li><a class="dropdown-item" href="">
+										<%= val.course_id %>
+									</a></li>
+								<%})%>
+          				</ul>
+        			</li>
+        			<li class="nav-item">
+          				<a class="nav-link" href="logout">Logout</a>
+        			</li>
+      			</ul>
+      		<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bell" viewBox="3 0 16 16">
+  				<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+			</svg>
+      		<botton type="button" class="btn btn-success" onclick="Display_lec()">Refresh</botton>
+    		</div>
+  		</div>
+	</nav>
+	<br><br><br>
+	<table border="5" cellspacing="0" align="center">
+		<!--<caption>Timetable</caption>-->
+		<tr>
+			<td align="center" height="50" width="100"><b>Time(IST)</b></br></td>
+			<td align="center" height="50" width="100"><b>08:00-09:00</b></td>
+			<td align="center" height="50" width="100"><b>09:00-10:00</b></td>
+			<td align="center" height="50" width="100"><b>10:15-11:15</b></td>
+			<td align="center" height="50" width="100"><b>11:15-12:15</b></td>
+			<td align="center" height="50" width="100"><b>01:00-02:00</b></td>
+			<td align="center" height="50" width="100"><b>02:00-03:00</b></td>
+			<td align="center" height="50" width="100"><b>03:00-04:00</b></td>
+			<td align="center" height="50" width="100"><b>04:00-05:00</b></td>
+			<td align="center" height="50" width="100"><b>05:00-06:00</b></td>
+		</tr>
+		<tr>
+			<td align="center" height="50"><b>Monday</b></td>
+			<td align="center" height="50" id="mon1">Eng</td>
+			<td align="center" height="50" id="mon2">Mat</td>
+			<td align="center" height="50" id="mon3">Che</td>
+			<td align="center" height="50" id="mon4">Phy</td>
+			<td align="center" height="50" id="mon5">Phy</td>
+			<td colspan="3" align="center" height="50" id="mon6">LAB</td>
+			<td align="center" height="50" id="mon7">Che</td>
+		</tr>
+		<tr>
+			<td align="center" height="50"><b>Tuesday</b></td>
+			<td align="center" height="50" id="tue1">Eng</td>
+			<td align="center" height="50" id="tue2">Che</td>
+			<td align="center" height="50" id="tue3">Mat</td>
+			<td align="center" height="50" id="tue4">Phy</td>
+			<td align="center" height="50" id="tue5">SPORTS</td>
+			<td colspan="3" align="center"height="50" id="tue6">LAB</td>
+			<td align="center" height="50" id="tue7">Che</td>
+		</tr>
+		<tr>
+			<td align="center" height="50"><b>Wednesday</b></td>
+			<td align="center" height="50" id="wed1">Mat</td>
+			<td align="center" height="50" id="wed2">phy</td>
+			<td align="center" height="50" id="wed3">Eng</td>
+			<td align="center" height="50" id="wed4">Phy</td>
+			<td align="center" height="50" id="wed5">Che</td>
+			<td colspan="3" align="center" height="50" id="wed6">LIBRARY</td>
+			<td align="center" height="50" id="wed7">Che</td>
+		</tr>
+		<tr>
+			<td align="center" height="50"><b>Thursday</b></td>
+			<td align="center" height="50" id="thu1">Phy</td>
+			<td align="center" height="50" id="thu2">Eng</td>
+			<td align="center" height="50" id="thu3">Che</td>
+			<td align="center" height="50" id="thu4">Phy</td>
+			<td align="center" height="50" id="thu5">Mat</td>
+			<td colspan="3" align="center" height="50" id="thu6">LAB</td>
+			<td align="center" height="50" id="thu7">Che</td>
+		</tr>
+		<tr>
+			<td align="center" height="50"><b>Friday</b></td>
+			<td align="center" height="50" id="fri1">Mat</td>
+			<td align="center" height="50" id="fri2">Che</td>
+			<td align="center" height="50" id="fri3">Eng</td>
+			<td align="center" height="50" id="fri4">Phy</td>
+			<td align="center" height="50" id="fri5">Phy</td>
+			<td colspan="3" align="center" height="50" id="fri6">LAB</td>
+			<td align="center" height="50" id="fri7">Che</td>
+		</tr>
+	</table>
+	
+
+</body>
+
+</html>
