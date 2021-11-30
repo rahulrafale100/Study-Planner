@@ -14,12 +14,13 @@ h2{
 .box{
   float:left; 
   background-color: rgb(255,255,255,0.8);
-  width: 420px;
+  width: 30%;
   height:250px;
   border: 10px solid #AAAAAA;
   border-radius: 50px;
   padding: 50px;
-  margin: 20px;
+
+  margin-left:3%;
 }
 
 

@@ -16,6 +16,42 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          background-color: bisque;
+          width: 100%;
+        }
+        
+        th {
+            
+          border-color: #4c93ce;
+          box-shadow: 0 0 15px #6993A2;
+          text-align: left;
+          padding: 10px;
+        }
+        td {
+            
+          border-color: #4c93ce;
+          box-shadow: 0 0 15px #6993A2;
+          text-align: left;
+          padding: 10px;
+        }
+        
+        tr:nth-child(even) {
+          border-color: #4c93ce;
+          box-shadow: 0 0 10px #8BB6C4;
+        }
+
+        .box{
+          border-color: #4c93ce;
+          box-shadow: 0 0 20px #6993A2;
+          text-align: left;
+          padding: 10px;
+        }
+        </style>
+        
 </head>
 
 <body>
@@ -23,7 +59,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Study <br>Planner</h3>
+                <h3>Study Planner</h3>
             </div>
 
             <ul class="list-unstyled components">
@@ -35,28 +71,12 @@
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <% data1.forEach(function(val){%>
                             <li><a  href="">
-                                <%= val.course_id %>
+                                <%= val.courseName %>
                               </a></li>
                             <%})%>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">About (if any)</a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages(if any)</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1(if any)</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2#</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3#</a>
-                        </li>
-                    </ul>
-                </li>
+               
                 
             </ul>
 
@@ -83,50 +103,48 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <h2 style="margin:0px auto">National Institute of Technology, Calicut</h2>
                         <ul class="nav navbar-nav ml-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bell" viewBox="3 0 16 16">
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
                           </svg>
-                            <button class="btn btn-outline-success" type="submit"><%=usname[0].username%></button>
+                          <lable style="margin:0px 10px 0px 5px"><%=usname[0].username%></label>
                         </ul>
                     </div>
                 </div>
             </nav>
 
-            <h1 style="text-align: center;">Upcoming Events</h1>
+            <h2 style="text-align: center; font-family: Georgia, 'Times New Roman', Times, serif;">Upcoming Events</h2>
             <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        Messsage
-                    </div>
-                    <div class="col-3">
-                        Timing
-                    </div>
-                    <div class="col-3">
-                    Course
-                    </div>
-                    <div class="col-2">
-                    Type
-                    </div>
-                </div>
-            <%data.forEach(function(y){%>
-                <div class="row">
-                    <div class="col-4">
-                        <%= y.N_Message %> 
-                    </div>
-                    <div class="col-3">
-                        <%= y.Timing %> 
-                    </div>
-                    <div class="col-3">
-                        <%= y.course_id %> 
-                    </div>
-                    <div class="col-2">
-                        <%= y.Type %> 
-                    </div>
-                </div>
-        
-             <%})%>
-            </div>    
+                
+             <table >
+                <tr>
+                    <th>Message</th>
+                    <th>Timing</th>
+                    <th>Course</th>
+                    <th>Type</th>
+                </tr>
+                <%data.forEach(function(y){%>
+                <tr>
+                    <td><%= y.N_Message %> </td>
+                    <td><%= y.Timing %></td>
+                    <td><%= y.course_id %></td>
+                    <td><%= y.Type %></td>
+                </tr>
+                <%})%>
+            </table>
+            </div>
+            <br><br><br>  
+            <div style="background-color: bisque;" class="box">
+                <div id="box">
+                <h3><u>Workshop</u></h3><br>
+                <%wrkshop.forEach(function(y){%>
+                <h5><%= y.course_id %></h5>
+                <p><%= y.N_Message %></p>
+                <p style="margin-left:10%">Time: <i><%= y.Timing %></i></p>
+                <%})%>
+            </div>
+            </div>  
         </div>
     </div>
 

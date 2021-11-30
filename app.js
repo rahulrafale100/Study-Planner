@@ -2,11 +2,20 @@ const express=require("express");
 const bodyParser=require("body-parser");
 const ejs=require("ejs");
 const mysql=require("mysql2");
+const session=require("express-session");
+const flash=require("connect-flash");
 
  
 const app=express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
+app.use(session({
+    secret:"secret",
+    cookie:{maxAge:600},
+    resave:false,
+    saveUninitialized:false
+}));
+app.use(flash());
 app.set('view engine', 'ejs');
 const con=mysql.createConnection({
     host:"localhost",
@@ -18,18 +27,28 @@ const con=mysql.createConnection({
 var studentid;
 var facultyid;
 var workshop_adminid;
+var adminid;
 //Global Systems//
 app.get("/",function(req,res){
-    res.render("sp_login");
+    res.render("sp_login",{message:req.flash("message")});
 });
 app.get("/Admin",function(req,res){
-    res.render("Admin");
+    let qry="SELECT * from admin where id="+adminid;
+    con.query(qry,function(err,ans){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("Admin",{usname:ans});
+        }
+    })
+    
 });
 app.get("/logout",function(req,res){
     res.redirect("/");
 });
 app.get("/Student",function(req,res){
-    let qry="SELECT * FROM student_course where student_id="+studentid;
+    let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
     let qry1="SELECT username FROM students where id="+studentid;
     con.query(qry,function(err,result){
         if(err){
@@ -41,7 +60,7 @@ app.get("/Student",function(req,res){
                     console.log(err);
                 }
                 else{
-                    res.render("st_homepage",{data:result,usname:ans});
+                    res.render("st_homepage",{data:result,usname:ans,message:req.flash("message")});
                 }
             })
            
@@ -50,10 +69,12 @@ app.get("/Student",function(req,res){
    
 });
 app.get("/Events",function(req,res){
-    let qry1="SELECT N_id,N_Message,Timing,nt.course_id,Type FROM notification as nt inner join student_course as st WHERE nt.course_id=st.course_id AND st.student_id="+studentid+" UNION select * from notification where Type='Workshop' ORDER BY Timing ASC";
-    let qry="SELECT * FROM student_course where student_id="+studentid;
+    let qry1="SELECT N_id,N_Message,Timing,nt.course_id,Type FROM notification as nt inner join student_course as st WHERE nt.course_id=st.course_id AND st.student_id="+studentid+" ORDER BY Timing ASC";
+    let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
     let qry2="SELECT username FROM students where id="+studentid;
+    let qry3="SELECT * FROM notification where Type='Workshop'";
     var val;
+    var answer;
     con.query(qry,function(err,result){
         if(err){
             console.log(err);
@@ -62,17 +83,25 @@ app.get("/Events",function(req,res){
             val=result;
         }
     });
+    con.query(qry2,function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            answer=result;
+        }
+    });
     con.query(qry1,function(err,result){
         if(err){
             console.log(err);
         }
         else{
-            con.query(qry2,function(err,answer){
+            con.query(qry3,function(err,ans){
                 if(err){
                     console.log(err);
                 }
                 else{
-                    res.render("Events",{data:result,data1:val,usname:answer});
+                    res.render("Events",{data:result,data1:val,usname:answer,wrkshop:ans});
                 }
             })
             
@@ -92,18 +121,18 @@ app.get("/schedule",function(req,res){
     });
 });
 app.get("/Plan",function(req,res){
-    let qry="SELECT * FROM activity WHERE sid="+studentid;
+    let qry="SELECT * FROM todo WHERE sid="+studentid;
     con.query(qry,function(err,result){
         if(err){
             console.log(err);
         }
         else{
-            res.render("list", { Title: "Today", myTask:result });
+            res.render("list", {data:result });
         }
     })
 });
 app.get("/Faculty",function(req,res){
-    let qry="SELECT * FROM faculty_course WHERE fid="+facultyid;
+    let qry="SELECT * FROM faculty_course as fc inner join courses as f where fc.cid=f.courseid AND fc.fid="+facultyid;
     let qry2="SELECT * FROM faculties WHERE id="+facultyid;
     con.query(qry,function(err,result){
         if(err){
@@ -147,6 +176,7 @@ app.post("/Admin",function(req,res){
                 console.log(error);
             }
             else{
+
                 res.redirect("/Admin");
             }
         })
@@ -172,6 +202,45 @@ app.post("/Admin",function(req,res){
         })
     }
 });
+app.post("/AdminP",function(req,res){
+    const uname=req.body.user;
+    
+    const option=req.body.opt;
+    let qry1="Delete from students where username='"+uname+"'";
+    let qry2="Delete from faculties where username='"+uname+"'";
+    let qry3="Delete from workshop_admin where username='"+uname+"'";
+    if(option==1){
+        con.query(qry1,function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+
+                res.redirect("/Admin");
+            }
+        })
+    }
+    else if(option==2){
+        con.query(qry2,function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.redirect("/Admin");
+            }
+        })
+    }
+    else{
+        con.query(qry3,function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.redirect("/Admin");
+            }
+        })
+    }
+});
 app.get("/Add",function(req,res){
     res.render("add");
 });
@@ -190,9 +259,11 @@ app.post("/",function(req,res){
         }
         else{
             if(result==0){
-                console.log("Invalid Credentials");
+                req.flash("message","Invalid Credentials!!!");
+                res.redirect("/");
             }
             else{
+                adminid=result[0].id;
                 res.redirect("/Admin");
             }
         }
@@ -206,7 +277,8 @@ else if(option==2){
         }
         else{
             if(result==0){
-                console.log("Invalid Credentials");
+                req.flash("message","Invalid Credentials!!!");
+                res.redirect("/");
             }
             else{
                 studentid=result[0].id;
@@ -223,7 +295,8 @@ else if(option==3){
         }
         else{
             if(result==0){
-                console.log("Invalid Credentials");
+                req.flash("message","Invalid Credentials!!!");
+                res.redirect("/");
             }
             else{
                 facultyid=result[0].id;
@@ -240,7 +313,8 @@ else{
         }
         else{
             if(result==0){
-                console.log("Invalid Credentials");
+                req.flash("message","Invalid Credentials!!!");
+                res.redirect("/");
             }
             else{
                 workshop_adminid=result[0].id;
@@ -265,20 +339,26 @@ app.post("/Student",function(req,res){
             console.log(err);
         }
         else{
+            req.flash("message","Enrolled Succesfully");
             res.redirect("/Student");
         }
     })
             }
             else{
-            res.send(500,"Wrong");
+                req.flash("message","Invalid Code!!!");
+           res.redirect("/Student");
             }
         }
     })
     
 });
 app.post("/Plan",function(req,res){
-    const task=req.body.Task;
-    let qry="INSERT INTO activity (task,sid) values ('"+task+"',"+studentid+")";
+    const task=req.body.task;
+    const time=req.body.time1;
+    const date=req.body.date1;
+    const timing=date+" "+time;
+    console.log(req.body);
+    let qry="INSERT INTO todo (task,time,sid) values ('"+task+"','"+timing+"',"+studentid+")";
     con.query(qry,function(err){
         if(err){
             console.log(err);
@@ -288,6 +368,21 @@ app.post("/Plan",function(req,res){
         }
     })
 });
+app.post("/PlanB",function(req,res){
+   const pt=req.body.del;
+    let qry="delete from todo where id="+pt;
+    con.query(qry,function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/Plan");
+        }
+    })
+});
+app.post("/PlanC",function(req,res){
+    console.log(req.body);
+})
 app.post("/delete",function(req,res){
     const itmToDelete=req.body.checkedItem;
     let qry="DELETE FROM activity WHERE id="+itmToDelete;
@@ -347,11 +442,36 @@ app.post("/Faculty",function(req,res){
         }
     });
 });
+app.post("/FacultyP",function(req,res){
+    const topic=req.body.topic;
+    const course=req.body.opt;
+  
+    let qry="DELETE FROM notification where N_Message='"+topic+"' AND course_id='"+course+"'";
+    con.query(qry,function(err){
+        if(err)
+        console.log(err);
+        else{
+            res.redirect("/Faculty");
+        }
+    });
+});
 app.post("/Workshop",function(req,res){
     const topic=req.body.topic;
     const time=req.body.time;
     const type=req.body.option;
     let qry="INSERT INTO notification (N_Message,Timing,course_id,Type) values ('"+topic+"','"+time+"','"+type+"','Workshop')";
+    con.query(qry,function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect("/Workshop");
+        }
+    })
+});
+app.post("/WorkshopP",function(req,res){
+    const topic=req.body.topic;
+    let qry="DELETE FROM notification where N_Message='"+topic+"'";
     con.query(qry,function(err){
         if(err){
             console.log(err);

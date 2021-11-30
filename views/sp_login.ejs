@@ -18,7 +18,11 @@
 </head>
 
 <body>
-	<br />
+	<% if(message.length>0) {%>
+		<div class="alert alert-primary">
+			<%= message %> 
+		</div> 
+		<%}%>
 	<div id="Login">
 		<h1>Study Planner</h1>
 		<img src="image/logo.png" alt="NITC logo" id="NITC_logo" class="center"><br><br>
@@ -28,7 +32,7 @@
 			<input type="text" id="uname" name="uname" /></span><br /><br />
 		<span>
 			<label for="pwd">Enter Password:</label>
-			<input type="password" id="pwd" name="pwd" minlength="8" /></span><br /><br />
+			<input type="password" id="pwd" autocomplete="off" name="pwd" minlength="8" /></span><br /><br />
 		<span>
 			<label for="inputGroupSelect01" >Category</label>
 			<select name="opt" id="inputGroupSelect01">
