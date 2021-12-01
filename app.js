@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(session({
     secret:"secret",
-    cookie:{maxAge:600},
+    cookie:{maxAge:6000},
     resave:false,
     saveUninitialized:false
 }));
@@ -72,7 +72,7 @@ app.get("/Events",function(req,res){
     let qry1="SELECT N_id,N_Message,Timing,nt.course_id,Type FROM notification as nt inner join student_course as st WHERE nt.course_id=st.course_id AND st.student_id="+studentid+" ORDER BY Timing ASC";
     let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
     let qry2="SELECT username FROM students where id="+studentid;
-    let qry3="SELECT * FROM notification where Type='Workshop'";
+    let qry3="SELECT * FROM notification where Type='Workshop' ORDER BY Timing ASC" ;
     var val;
     var answer;
     con.query(qry,function(err,result){
@@ -110,14 +110,17 @@ app.get("/Events",function(req,res){
 
 })
 app.get("/schedule",function(req,res){
-    let qry="SELECT * FROM student_course where student_id="+studentid;
+    let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
     con.query(qry,function(err,result){
         if(err){
             console.log(err);
         }
         else{
-            res.render("schedule",{data:result});
-        }
+           
+                    res.render("schedule",{data:result});
+                }
+            
+           
     });
 });
 app.get("/Plan",function(req,res){
@@ -357,7 +360,6 @@ app.post("/Plan",function(req,res){
     const time=req.body.time1;
     const date=req.body.date1;
     const timing=date+" "+time;
-    console.log(req.body);
     let qry="INSERT INTO todo (task,time,sid) values ('"+task+"','"+timing+"',"+studentid+")";
     con.query(qry,function(err){
         if(err){
@@ -417,9 +419,11 @@ app.post("/Add",function(req,res){
 });
 app.post("/Faculty",function(req,res){
     const topic=req.body.topic;
-    const timing=req.body.time;
+    const time=req.body.time1;
+    const date=req.body.date1;
     const course=req.body.opt;
     const type=req.body.opt1;
+    const timing=date+" "+time;
     var ans;
     if(type==1){
         ans="Assigment";
@@ -457,9 +461,11 @@ app.post("/FacultyP",function(req,res){
 });
 app.post("/Workshop",function(req,res){
     const topic=req.body.topic;
-    const time=req.body.time;
+    const time=req.body.time1;
+    const date=req.body.date1;
     const type=req.body.option;
-    let qry="INSERT INTO notification (N_Message,Timing,course_id,Type) values ('"+topic+"','"+time+"','"+type+"','Workshop')";
+    const timing=date+" "+time;
+    let qry="INSERT INTO notification (N_Message,Timing,course_id,Type) values ('"+topic+"','"+timing+"','"+type+"','Workshop')";
     con.query(qry,function(err){
         if(err){
             console.log(err);
