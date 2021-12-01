@@ -111,15 +111,25 @@ app.get("/Events",function(req,res){
 })
 app.get("/schedule",function(req,res){
     let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
+    let qry1="SELECT * FROM student_course as sc inner join schedule as sch where sc.course_id=sch.c_id AND sc.student_id="+studentid;
     con.query(qry,function(err,result){
         if(err){
             console.log(err);
         }
-        else{
-           
-                    res.render("schedule",{data:result});
+        else{   
+            con.query(qry1,function(err1,ans){
+                if(err1){
+                    console.log(err1);
                 }
-            
+                else{
+                     
+                    res.render("schedule",{data:result,answer:ans});
+                }
+            })
+           
+
+                
+        }
            
     });
 });
@@ -424,6 +434,9 @@ app.post("/Faculty",function(req,res){
     const course=req.body.opt;
     const type=req.body.opt1;
     const timing=date+" "+time;
+    const day=req.body.opt2;
+    const slot=req.body.opt3;
+    const sch=day+slot;
     var ans;
     if(type==1){
         ans="Assigment";
@@ -438,11 +451,20 @@ app.post("/Faculty",function(req,res){
         ans="Exams";
     }
     let qry="INSERT INTO notification (N_Message,Timing,course_id,Type) values ('"+topic+"','"+timing+"','"+course+"','"+ans+"')";
+    let qry1="INSERT INTO schedule (c_id,slot) values ('"+course+"','"+sch+"')";
     con.query(qry,function(err){
         if(err)
         console.log(err);
         else{
-            res.redirect("/Faculty");
+            con.query(qry1,function(err1){
+                if(err1){
+                    console.log(err1);
+                }
+                else{
+                    res.redirect("/Faculty");
+                }
+            })
+           
         }
     });
 });
