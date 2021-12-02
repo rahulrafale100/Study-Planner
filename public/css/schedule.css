@@ -1,9 +1,4 @@
-body{
-	background-image: url("image/time.jpg");
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-    background-size: 100% 100%;
-}
+
 table{
 	color: #000000;
 	background-color: rgb(255,255,255,0.5);

@@ -10,6 +10,14 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style1.css">
 	<link rel="stylesheet" href="css/schedule.css">
+	<style>
+		body{
+	background-image: url("image/time.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    background-size: 100% 100%;
+}
+	</style>
 	<script src="js/schedule.js"></script>
 </head>
 <body>
@@ -28,15 +36,11 @@
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" style="color:#000000;">My courses</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#" style="color:#000000;">Page 1(if any)</a>
-                        </li>
-                        <li>
-                            <a href="#" style="color:#000000;">Page 2#</a>
-                        </li>
-                        <li>
-                            <a href="#" style="color:#000000;">Page 3#</a>
-                        </li>
+                        <% data.forEach(function(val){%>
+							<li><a class="dropdown-item" href="">
+									<%= val.courseName %>
+								</a></li>
+							<%})%>
                     </ul>
                 </li>
                 <li>
@@ -63,7 +67,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bell" viewBox="3 0 16 16">
   				<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
 			</svg>
-      		<botton type="button" class="btn btn-success" onclick="display() ">Refresh</botton>
+      		
                 </div>
             </nav>
 	<br><br><br>
@@ -83,53 +87,53 @@
 		</tr>
 		<tr>
 			<td align="center" height="50"><b>Monday</b></td>
-			<td align="center" height="50" id="11">-</td>
-			<td align="center" height="50" id="12">-</td>
-			<td align="center" height="50" id="13">-</td>
-			<td align="center" height="50" id="14">-</td>
-			<td align="center" height="50" id="15">-</td>
-			<td colspan="3" align="center" height="50" id="16">---</td>
-			<td align="center" height="50" id="17">-</td>
+			<td align="center" height="50" id="11"><%= answer[0] %> </td>
+			<td align="center" height="50" id="12"><%= answer[1] %></td>
+			<td align="center" height="50" id="13"><%= answer[2] %></td>
+			<td align="center" height="50" id="14"><%= answer[3] %></td>
+			<td align="center" height="50" id="15"><%= answer[4] %></td>
+			<td colspan="3" align="center" height="50" id="16"><%= answer[5] %></td>
+			<td align="center" height="50" id="17"><%= answer[6] %></td>
 		</tr>
 		<tr>
 			<td align="center" height="50"><b>Tuesday</b></td>
-			<td align="center" height="50" id="21">-</td>
-			<td align="center" height="50" id="22">-</td>
-			<td align="center" height="50" id="23">-</td>
-			<td align="center" height="50" id="24">-</td>
-			<td align="center" height="50" id="25">-</td>
-			<td colspan="3" align="center"height="50" id="26">---</td>
-			<td align="center" height="50" id="27">-</td>
+			<td align="center" height="50" id="21"><%= answer[7] %></td>
+			<td align="center" height="50" id="22"><%= answer[8] %></td>
+			<td align="center" height="50" id="23"><%= answer[9] %></td>
+			<td align="center" height="50" id="24"><%= answer[10] %></td>
+			<td align="center" height="50" id="25"><%= answer[11] %></td>
+			<td colspan="3" align="center"height="50" id="26"><%= answer[12] %></td>
+			<td align="center" height="50" id="27"><%= answer[13] %></td>
 		</tr>
 		<tr>
 			<td align="center" height="50"><b>Wednesday</b></td>
-			<td align="center" height="50" id="31">-</td>
-			<td align="center" height="50" id="32">-</td>
-			<td align="center" height="50" id="33">-</td>
-			<td align="center" height="50" id="34">-</td>
-			<td align="center" height="50" id="35">-</td>
-			<td colspan="3" align="center" height="50" id="36">---</td>
-			<td align="center" height="50" id="37">-</td>
+			<td align="center" height="50" id="31"><%= answer[14] %></td>
+			<td align="center" height="50" id="32"><%= answer[15] %></td>
+			<td align="center" height="50" id="33"><%= answer[16] %></td>
+			<td align="center" height="50" id="34"><%= answer[17] %></td>
+			<td align="center" height="50" id="35"><%= answer[18] %></td>
+			<td colspan="3" align="center" height="50" id="36"><%= answer[19] %></td>
+			<td align="center" height="50" id="37"><%= answer[20] %></td>
 		</tr>
 		<tr>
 			<td align="center" height="50"><b>Thursday</b></td>
-			<td align="center" height="50" id="41">-</td>
-			<td align="center" height="50" id="42">-</td>
-			<td align="center" height="50" id="43">-</td>
-			<td align="center" height="50" id="44">-</td>
-			<td align="center" height="50" id="45">-</td>
-			<td colspan="3" align="center" height="50" id="46">---</td>
-			<td align="center" height="50" id="47">-</td>
+			<td align="center" height="50" id="41"><%= answer[21] %></td>
+			<td align="center" height="50" id="42"><%= answer[22] %></td>
+			<td align="center" height="50" id="43"><%= answer[23] %></td>
+			<td align="center" height="50" id="44"><%= answer[24] %></td>
+			<td align="center" height="50" id="45"><%= answer[25] %></td>
+			<td colspan="3" align="center" height="50" id="46"><%= answer[26] %></td>
+			<td align="center" height="50" id="47"><%= answer[27] %></td>
 		</tr>
 		<tr>
 			<td align="center" height="50"><b>Friday</b></td>
-			<td align="center" height="50" id="51">-</td>
-			<td align="center" height="50" id="52">-</td>
-			<td align="center" height="50" id="53">-</td>
-			<td align="center" height="50" id="54">-</td>
-			<td align="center" height="50" id="55">-</td>
-			<td colspan="3" align="center" height="50" id="56">---</td>
-			<td align="center" height="50" id="57">-</td>
+			<td align="center" height="50" id="51"><%= answer[28] %></td>
+			<td align="center" height="50" id="52"><%= answer[29] %></td>
+			<td align="center" height="50" id="53"><%= answer[30] %></td>
+			<td align="center" height="50" id="54"><%= answer[31] %></td>
+			<td align="center" height="50" id="55"><%= answer[32] %></td>
+			<td colspan="3" align="center" height="50" id="56"><%= answer[33] %></td>
+			<td align="center" height="50" id="57"><%= answer[34] %></td>
 		</tr>
 	</table>
 	</div>
@@ -149,9 +153,9 @@
         });
     </script>
 	<script>
-		function display(){
-			var count = Object.keys(answer).length;
-		console.log(count);
+		function display_lect(){
+		
+
 	 
 		}
 			   

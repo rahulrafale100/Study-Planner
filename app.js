@@ -111,7 +111,7 @@ app.get("/Events",function(req,res){
 })
 app.get("/schedule",function(req,res){
     let qry="SELECT * FROM student_course as fc inner join courses as f where fc.course_id=f.courseid AND fc.student_id="+studentid;
-    let qry1="SELECT * FROM student_course as sc inner join schedule as sch where sc.course_id=sch.c_id AND sc.student_id="+studentid;
+    let qry1="SELECT * FROM courses as ut inner join (SELECT * FROM student_course as sc inner join schedule as sch where sc.course_id=sch.c_id AND sc.student_id="+studentid+") as kt where ut.courseid=kt.c_id";
     con.query(qry,function(err,result){
         if(err){
             console.log(err);
@@ -122,8 +122,246 @@ app.get("/schedule",function(req,res){
                     console.log(err1);
                 }
                 else{
+                     var array=["--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--","--"];
+                     ans.forEach(function(x){
+                         if(x.slot=='11'){
+                             var k=x.slot;
+                             var t=x.courseName;
+                             array[0]=t;
+                             
+                         }
+                         
+                         if(x.slot=='12'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[1]=t;
+                            
+                        }
+                        
+                        if(x.slot=='13'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[2]=t;
+                            
+                        }
+                       
+                        if(x.slot=='14'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[3]=t;
+                            
+                        }
+                        
+                        if(x.slot=='15'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[4]=t;
+                            
+                        }
+                        
+                        if(x.slot=='16'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[5]=t;
+                           
+                        }
+                        
+                        if(x.slot=='17'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[6]=t;
+                            
+                        }
+                        
+                        if(x.slot=='21'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[7]=t;
+                            
+                        }
+                       
+                        if(x.slot=='22'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[8]=t;
+                        }
+                        
+                        if(x.slot=='23'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[9]=t;
+                            
+                        }
+                        
+                        if(x.slot=='24'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[10]=t;
+                            
+                        }
+                        
+                        if(x.slot=='25'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[11]=t;
+                            
+                        }
+                        
+                        if(x.slot=='26'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[12]=t;
+                           
+                        }
+                       
+                        if(x.slot=='27'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[13]=t;
+                            
+                        }
+                      
+                        if(x.slot=='31'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[14]=t;
+                           
+                        }
+                        
+                        if(x.slot=='32'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[15]=t;
+                            
+                        }
+                        
+                        if(x.slot=='33'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[16]=t;
+                            
+                        }
+                       
+                        if(x.slot=='34'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[17]=t;
+                            
+                        }
+                        
+                        if(x.slot=='35'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[18]=t;
+                            
+                        }
+                        
+                        if(x.slot=='36'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[19]=t;
+                         
+                        }
+                       
+                        if(x.slot=='37'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[20]=t;
+                           
+                        }
+                       
+                        if(x.slot=='41'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[21]=t;
+                            
+                        }
+                       
+                        if(x.slot=='42'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[22]=t;
+                            
+                        }
+                       
+                        if(x.slot=='43'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[23]=t;
+                            
+                        }
+                        
+                        if(x.slot=='44'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[24]=t;
+                        }
+                       
+                        if(x.slot=='45'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[25]=t;
+                        }
+                       
+                        if(x.slot=='46'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[26]=t;
+                        }
+                       
+                        if(x.slot=='47'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[27]=t;
+                        }
+                        
+                        if(x.slot=='51'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[28]=t;
+                           
+                        }
+                        
+                        if(x.slot=='52'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[29]=t;
+                           
+                        }
+                       
+                        if(x.slot=='53'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[30]=t;
+                        }
+                        
+                        if(x.slot=='54'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[31]=t;
+                        }
+                        
+                        if(x.slot=='55'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[32]=t;
+                        }
+                        
+                        if(x.slot=='56'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[33]=t;
+                        }
+                        
+                        if(x.slot=='57'){
+                            var k=x.slot;
+                            var t=x.courseName;
+                            array[34]=t;
+                        }
+                        
+                     })
                      
-                    res.render("schedule",{data:result,answer:ans});
+                    res.render("schedule",{data:result,answer:array});
                 }
             })
            
@@ -451,11 +689,12 @@ app.post("/Faculty",function(req,res){
         ans="Exams";
     }
     let qry="INSERT INTO notification (N_Message,Timing,course_id,Type) values ('"+topic+"','"+timing+"','"+course+"','"+ans+"')";
-    let qry1="INSERT INTO schedule (c_id,slot) values ('"+course+"','"+sch+"')";
+    let qry1="UPDATE schedule SET c_id ='"+course+"' WHERE (slot='"+sch+"')";
     con.query(qry,function(err){
         if(err)
         console.log(err);
         else{
+            if(ans=="Lectures"){
             con.query(qry1,function(err1){
                 if(err1){
                     console.log(err1);
@@ -464,20 +703,36 @@ app.post("/Faculty",function(req,res){
                     res.redirect("/Faculty");
                 }
             })
-           
+        }
+        else{
+            res.redirect("/Faculty");
+        }
         }
     });
 });
 app.post("/FacultyP",function(req,res){
     const topic=req.body.topic;
     const course=req.body.opt;
-  
+    const t=req.body.opt1;
+    const day=req.body.opt2;
+    const slot=req.body.opt3;
+    const sch=day+slot;
+
     let qry="DELETE FROM notification where N_Message='"+topic+"' AND course_id='"+course+"'";
+    let qry1="UPDATE schedule SET c_id ='--' WHERE (slot='"+sch+"')";
     con.query(qry,function(err){
         if(err)
         console.log(err);
         else{
-            res.redirect("/Faculty");
+            if(t=="3"){
+                con.query(qry1,function(err){
+                    res.redirect("/Faculty");
+                })
+            }
+            else{
+                res.redirect("/Faculty");
+            }
+            
         }
     });
 });
